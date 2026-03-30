@@ -6,42 +6,77 @@
     android:orientation="vertical"
     android:padding="24dp"
     android:gravity="center"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CampusFind"
-        android:textSize="28sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginBottom="12dp" />
+        android:textColor="#1565C0"
+        android:layout_marginBottom="10dp" />
 
+    <!-- Subtitle -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lost &amp; Found Campus Board"
         android:textSize="18sp"
+        android:textColor="#555555"
         android:layout_marginBottom="30dp" />
 
+    <!-- Add Lost -->
     <Button
         android:id="@+id/btnAddLost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Lost Item"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:backgroundTint="#1E88E5"
         android:layout_marginBottom="16dp" />
 
+    <!-- Add Found -->
     <Button
         android:id="@+id/btnAddFound"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Found Item"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:backgroundTint="#1E88E5"
         android:layout_marginBottom="16dp" />
 
+    <!-- View Posts -->
     <Button
         android:id="@+id/btnViewPosts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View All Posts" />
+        android:text="View All Posts"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:backgroundTint="#1E88E5"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnMyPosts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Posts"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:backgroundTint="#1E88E5"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnRequests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Requests"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

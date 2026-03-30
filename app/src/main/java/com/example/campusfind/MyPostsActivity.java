@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ViewPostsActivity extends AppCompatActivity {
+public class MyPostsActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewPosts;
-    TextView tvEmpty; // 🔥 NEW
+    TextView tvEmpty; // 🔥 NEW (empty state)
     DatabaseHelper databaseHelper;
     ArrayList<Post> postList;
     PostAdapter postAdapter;
@@ -21,7 +21,7 @@ public class ViewPostsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_posts);
+        setContentView(R.layout.activity_my_posts);
 
         recyclerViewPosts = findViewById(R.id.recyclerViewPosts);
         tvEmpty = findViewById(R.id.tvEmpty); // 🔥 NEW
@@ -33,26 +33,26 @@ public class ViewPostsActivity extends AppCompatActivity {
         postList = new ArrayList<>();
 
         // 🔥 Create adapter ONCE
-        postAdapter = new PostAdapter(this, postList, false);
+        postAdapter = new PostAdapter(this, postList, true);
         recyclerViewPosts.setAdapter(postAdapter);
 
-        loadPosts();
+        loadMyPosts();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadPosts(); // 🔥 refresh
+        loadMyPosts(); // 🔥 refresh
     }
 
-    private void loadPosts() {
+    private void loadMyPosts() {
 
         postList.clear();
-        postList.addAll(databaseHelper.getAllPosts());
+        postList.addAll(databaseHelper.getMyPosts());
 
         postAdapter.notifyDataSetChanged();
 
-        // 🔥 EMPTY STATE
+        // 🔥 SHOW EMPTY MESSAGE IF NO POSTS
         if (postList.isEmpty()) {
             tvEmpty.setVisibility(View.VISIBLE);
             recyclerViewPosts.setVisibility(View.GONE);

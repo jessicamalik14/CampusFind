@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CampusFind</string>
+    <string name="all_posts">All Campus Posts</string>
+    <string name="no_posts">No posts available</string>
 </resources>

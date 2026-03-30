@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Basic -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- App Theme Colors -->
+    <color name="primaryBlue">#1565C0</color>
+    <color name="lightBlue">#1E88E5</color>
+    <color name="accentBlue">#42A5F5</color>
+
+    <!-- Background -->
+    <color name="background">#FFFFFF</color>
+
+    <!-- Card / Item Background -->
+    <color name="card">#F5F9FF</color>
+
+    <!-- Text -->
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#555555</color>
+
 </resources>

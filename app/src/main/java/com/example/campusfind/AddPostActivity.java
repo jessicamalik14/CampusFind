@@ -1,5 +1,6 @@
 package com.example.campusfind;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -19,6 +20,8 @@ public class AddPostActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     String postType;
 
+    int postId = -1; // 🔥 for edit
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +38,34 @@ public class AddPostActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        postType = getIntent().getStringExtra("type");
+        Intent intent = getIntent();
+
+        postType = intent.getStringExtra("type");
         if (postType == null) {
             postType = "Lost";
         }
 
-        tvAddPostTitle.setText("Add " + postType + " Item");
+        // 🔥 EDIT MODE
+        if (intent.hasExtra("id")) {
+
+            postId = intent.getIntExtra("id", -1);
+
+            etItemName.setText(intent.getStringExtra("itemName"));
+            etCategory.setText(intent.getStringExtra("category"));
+            etLocation.setText(intent.getStringExtra("location"));
+            etDate.setText(intent.getStringExtra("date"));
+            etDescription.setText(intent.getStringExtra("description"));
+            etContact.setText(intent.getStringExtra("contact"));
+
+            tvAddPostTitle.setText("Edit Post");
+            btnSavePost.setText("Update Post");
+
+        } else {
+            tvAddPostTitle.setText("Add " + postType + " Item");
+        }
 
         btnSavePost.setOnClickListener(v -> {
+
             String itemName = etItemName.getText().toString().trim();
             String category = etCategory.getText().toString().trim();
             String location = etLocation.getText().toString().trim();
@@ -58,15 +81,47 @@ public class AddPostActivity extends AppCompatActivity {
                 return;
             }
 
-            boolean inserted = databaseHelper.insertPost(postType, itemName, category,
-                    location, date, description, contact);
+            // 🔥 UPDATE MODE
+            if (postId != -1) {
 
-            if (inserted) {
-                Toast.makeText(this, postType + " item saved successfully", Toast.LENGTH_SHORT).show();
-                finish();
+                Post post = new Post(
+                        postId,
+                        postType,
+                        itemName,
+                        category,
+                        location,
+                        date,
+                        description,
+                        contact
+                );
+
+                databaseHelper.updatePost(post);
+
+                Toast.makeText(this, "Post updated successfully", Toast.LENGTH_SHORT).show();
+
             } else {
-                Snackbar.make(v, "Error saving post", Snackbar.LENGTH_SHORT).show();
+
+                // 🔥 ADD MODE (NOW SAVES AS "MY POST")
+                boolean inserted = databaseHelper.insertPost(
+                        postType,
+                        itemName,
+                        category,
+                        location,
+                        date,
+                        description,
+                        contact,
+                        1 // ✅ THIS IS THE NEW FEATURE (MY POST)
+                );
+
+                if (inserted) {
+                    Toast.makeText(this, postType + " item saved successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(v, "Error saving post", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
             }
+
+            finish(); // close screen
         });
     }
 }
